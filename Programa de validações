@@ -1,0 +1,70 @@
+def validar_nome(nome):
+    """Valida se o nome tem mais de 3 caracteres."""
+    if len(nome) > 3:
+        return True
+    print("Nome deve ter mais de 3 caracteres.")
+    return False
+
+def validar_idade(idade):
+    """Valida se a idade está entre 0 e 150 anos."""
+    if 0 <= idade <= 150:
+        return True
+    print("Idade deve ser entre 0 e 150 anos.")
+    return False
+
+def validar_salario(salario):
+    """Valida se o salário é maior que 0."""'
+    if salario > 0:
+        return True
+    print("Salário deve ser maior que 0.")
+    return False
+
+def validar_sexo(sexo):
+    """Valida se o sexo é 'F' ou 'M'."""
+    if sexo.lower() in ['f', 'm']:
+        return True
+    print("Sexo deve ser 'F' ou 'M'.")
+    return False
+
+def validar_estado_civil(estado_civil):
+    """Valida se o estado civil é 's', 'c', 'v' ou 'd'."""
+    if estado_civil.lower() in ['s', 'c', 'v', 'd']:
+        return True
+    print("Estado civil deve ser 's', 'c', 'v' ou 'd'.")
+    return False
+
+def obter_entrada(prompt, tipo, validacao):
+    """Função para obter entrada do usuário e validar."""
+    while True:
+        try:
+            entrada = tipo(input(prompt).strip())  # Converte para o tipo necessário (int, float, etc.)
+            if validacao(entrada):  # Chama a validação
+                return entrada
+        except ValueError:
+            print(f"Valor inválido. Por favor, forneça um valor do tipo {tipo.__name__}.")
+            continue
+
+def coletar_dados():
+    """Função principal que coleta e valida os dados."""
+    nome = input("Digite seu nome: ")
+    while not validar_nome(nome):
+        nome = input("Digite seu nome: ")
+
+    idade = obter_entrada("Digite sua idade: ", int, validar_idade)
+    salario = obter_entrada("Digite seu salário: ", float, validar_salario)
+    sexo = input("Digite seu sexo (F/M): ").strip().lower()
+    while not validar_sexo(sexo):
+        sexo = input("Digite seu sexo (F/M): ").strip().lower()
+
+    estado_civil = input("Digite seu estado civil (s, c, v, d): ").strip().lower()
+    while not validar_estado_civil(estado_civil):
+        estado_civil = input("Digite seu estado civil (s, c, v, d): ").strip().lower()
+
+    print("\nDados validados com sucesso!")
+    print(f"Nome: {nome}")
+    print(f"Idade: {idade}")
+    print(f"Salário: R${salario:.2f}")
+    print(f"Sexo: {'Feminino' if sexo == 'f' else 'Masculino'}")
+    print(f"Estado Civil: {'Solteiro(a)' if estado_civil == 's' else 'Casado(a)' if estado_civil == 'c' else 'Viúvo(a)' if estado_civil == 'v' else 'Divorciado(a)'}")
+
+coletar_dados()
